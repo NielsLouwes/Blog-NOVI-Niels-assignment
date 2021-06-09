@@ -8,6 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Login from "./components/Login";
+import Blog from "./components/Blog";
 import { useForm } from "react-hook-form";
 
 function App() {
@@ -22,9 +23,11 @@ function App() {
           <Link to="/">Home</Link> 
 
         </li>
-        <li>
-        <Link to="/login">Login</Link> 
-        </li>
+        {!isAuthenticated && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         <li>
           <Link to="/blog">Blog</Link> 
         </li>
@@ -33,9 +36,16 @@ function App() {
         </li>
       </nav>
  <Switch>
-   <Route path="/login">
-      <Login />
+   <Route exact path="/login">
+      <Login 
+      isAuthenticated={isAuthenticated}
+      toggleIsAuthenticated={toggleIsAuthenticated}/>
       </Route>
+    <Route>
+    <Blog exact path="/blog"/>
+    </Route>
+ 
+ 
  </Switch>
     </div>
 
